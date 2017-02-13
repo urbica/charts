@@ -1,0 +1,33 @@
+{
+  "name": "@urbica/components",
+  "version": "1.0.0",
+  "description": "Urbica React Components",
+  "author": "Stepan Kuzmin <to.stepan.kuzmin@gmail.com> (stepankuzmin.ru)",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "storybook-to-ghpages",
+  },
+  "dependencies": {
+    "react": "15.4.2",
+    "react-d3-shape": "0.3.25",
+    "react-dom": "15.4.2"
+  },
+  "devDependencies": {
+    "@kadira/react-storybook-addon-info": "3.3.0",
+    "@kadira/storybook": "2.35.3",
+    "@kadira/storybook-addon-knobs": "1.7.1",
+    "@kadira/storybook-addon-options": "1.0.1",
+    "@kadira/storybook-deployer": "1.2.0",
+    "eslint": "3.15.0",
+    "eslint-config-airbnb": "14.1.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.9.0",
+    "react-storybook-addon-backgrounds": "0.0.7"
+  }
+}
