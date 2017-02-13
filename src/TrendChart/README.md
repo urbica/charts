@@ -1,6 +1,8 @@
-# TrendChart component
+# TrendChart
 
 Trend chart is a graphical representation of time series data (information in sequence over time) showing the trend line or curve that reveals a general pattern of change.
+
+[Live](https://urbica.github.io/components/?selectedKind=Charts&selectedStory=TrendChart)
 
 ## Usage
 

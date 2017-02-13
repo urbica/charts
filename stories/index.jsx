@@ -54,18 +54,15 @@ stories
       };
 
       return (
-        <div>
-          <h1>TrendChart</h1>
-          <TrendChart
-            data={data}
-            width={number('Width', 1000)}
-            height={number('Height', 100)}
-            margins={object('margins', margins)}
-            actualStyle={object('actualStyle', actualStyle)}
-            expectedStyle={object('expectedStyle', expectedStyle)}
-            actualColor={color('actualColor', '#ee675a')}
-            expectedColor={color('expectedColor', '#5e6066')}
-          />
-        </div>
+        <TrendChart
+          data={data}
+          width={number('Width', 1000)}
+          height={number('Height', 100)}
+          margins={object('margins', margins)}
+          actualStyle={object('actualStyle', actualStyle)}
+          expectedStyle={object('expectedStyle', expectedStyle)}
+          actualColor={color('actualColor', '#ee675a')}
+          expectedColor={color('expectedColor', '#5e6066')}
+        />
       );
     });

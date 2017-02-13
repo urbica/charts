@@ -1,7 +1,12 @@
-# Urbica React Components
+# Urbica Components
 
 [React Storybook](http://urbica.github.io/components)
 
 ## Components
 
-* [TrendChart]()
+### TrendChart
+
+Trend chart is a graphical representation of time series data (information in sequence over time) showing the trend line or curve that reveals a general pattern of change.
+
+[Live](https://urbica.github.io/components/?selectedKind=Charts&selectedStory=TrendChart)
+[Usage](https://github.com/urbica/components/blob/master/src/TrendChart)
