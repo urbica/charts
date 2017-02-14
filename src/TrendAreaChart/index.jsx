@@ -1,32 +1,33 @@
 import React, { PropTypes } from 'react';
 import { path } from 'd3-path';
-import { line } from 'd3-shape';
+import { area } from 'd3-shape';
 import { extent } from 'd3-array';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
-const getLine = (width, height, data, key) => {
+const getArea = (width, height, data, key) => {
   const x = scaleTime().range([0, width]);
   const y = scaleLinear().range([height, 0]);
   const context = path();
 
-  const newLine = line()
+  const newArea = area()
     .context(context)
     .x(d => x(d.date))
-    .y(d => y(d[key]));
+    .y1(d => y(d[key]))
+    .y0(y(0));
 
   x.domain(extent(data, d => d.date));
   y.domain(extent(data, d => d[key]));
 
-  newLine(data);
+  newArea(data);
 
   return context;
 };
 
-const TrendChart = (props) => {
+const TrendAreaChart = (props) => {
   const { data, actualStyle, expectedStyle, width, height, margins } = props;
 
-  const actualLine = getLine(width, height, data, 'actual');
-  const expectedLine = getLine(width, height, data, 'expected');
+  const actualLine = getArea(width, height, data, 'actual');
+  const expectedLine = getArea(width, height, data, 'expected');
 
   const transform = `translate(${margins.left}, ${margins.top})`;
 
@@ -35,13 +36,13 @@ const TrendChart = (props) => {
       <g transform={transform}>
         <path
           d={expectedLine.toString()}
-          fill="none"
+          fill={actualStyle.fill}
           style={expectedStyle}
           stroke={expectedStyle.stroke}
         />
         <path
           d={actualLine.toString()}
-          fill="none"
+          fill={actualStyle.fill}
           style={actualStyle}
           stroke={actualStyle.stroke}
         />
@@ -50,7 +51,7 @@ const TrendChart = (props) => {
   );
 };
 
-TrendChart.propTypes = {
+TrendAreaChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.any,
     actual: PropTypes.any,
@@ -63,12 +64,16 @@ TrendChart.propTypes = {
     bottom: PropTypes.number
   }),
   actualStyle: PropTypes.shape({
+    fill: PropTypes.string,
     stroke: PropTypes.string,
+    fillOpacity: PropTypes.number,
     strokeWidth: PropTypes.number,
     strokeOpacity: PropTypes.number
   }),
   expectedStyle: PropTypes.shape({
+    fill: PropTypes.string,
     stroke: PropTypes.string,
+    fillOpacity: PropTypes.number,
     strokeWidth: PropTypes.number,
     strokeOpacity: PropTypes.number
   }),
@@ -76,7 +81,7 @@ TrendChart.propTypes = {
   height: PropTypes.number.isRequired
 };
 
-TrendChart.defaultProps = {
+TrendAreaChart.defaultProps = {
   actualStyle: {
     stroke: '#ee675a',
     strokeWidth: 2,
@@ -95,4 +100,4 @@ TrendChart.defaultProps = {
   }
 };
 
-export default TrendChart;
+export default TrendAreaChart;

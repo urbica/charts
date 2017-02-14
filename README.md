@@ -24,3 +24,18 @@ import { TrendChart } from '@urbica/components';
 
 [Live](https://urbica.github.io/components/?selectedKind=Charts&selectedStory=TrendChart)
 [Usage](https://github.com/urbica/components/blob/master/src/TrendChart)
+
+### TrendAreaChart
+
+Trend chart is a graphical representation of time series data (information in sequence over time) showing the trend line or curve that reveals a general pattern of change.
+
+```js
+import { TrendAreaChart } from '@urbica/components';
+```
+
+```js
+<TrendAreaChart data={data} width={1000} height={100}/>
+```
+
+[Live](https://urbica.github.io/components/?selectedKind=Charts&selectedStory=TrendAreaChart)
+[Usage](https://github.com/urbica/components/blob/master/src/TrendAreaChart)

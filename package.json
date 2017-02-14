@@ -13,9 +13,22 @@
     "deploy-storybook": "storybook-to-ghpages",
     "postpublish": "greenkeeper-postpublish"
   },
+  "keywords": [
+    "d3",
+    "react",
+    "data",
+    "visualization",
+    "library",
+    "graphs",
+    "charts",
+    "plots"
+  ],
   "dependencies": {
+    "d3-array": "1.0.2",
+    "d3-path": "1.0.3",
+    "d3-scale": "1.0.4",
+    "d3-shape": "1.0.4",
     "react": "15.4.2",
-    "react-d3-shape": "0.3.25",
     "react-dom": "15.4.2"
   },
   "devDependencies": {
