@@ -96,16 +96,20 @@ TrendAreaChart.propTypes = {
 
 TrendAreaChart.defaultProps = {
   actualStyle: {
+    fill: '#ee675a',
+    fillOpacity: 0.6,
     stroke: '#ee675a',
     strokeWidth: 2,
-    strokeOpacity: 0.8,
+    strokeOpacity: 1,
     strokeLinecap: 'round',
     strokeLinejoin: 'round'
   },
   expectedStyle: {
+    fill: '#5e6066',
+    fillOpacity: 0.6,
     stroke: '#5e6066',
     strokeWidth: 2,
-    strokeOpacity: 0.8,
+    strokeOpacity: 1,
     strokeLinecap: 'round',
     strokeLinejoin: 'round'
   },

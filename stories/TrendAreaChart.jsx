@@ -32,20 +32,20 @@ export default () => {
 
   const actualStyle = {
     fill: color('Actual fill color', '#ee675a'),
-    fillOpacity: number('Actual fill opacity', 0.8, opacityOptions),
+    fillOpacity: number('Actual fill opacity', 0.6, opacityOptions),
     stroke: color('Actual color', '#ee675a'),
     strokeWidth: number('Actual stroke width', 2),
-    strokeOpacity: number('Actual stroke opacity', 0.8, opacityOptions),
+    strokeOpacity: number('Actual stroke opacity', 1, opacityOptions),
     strokeLinecap: select('Actual line cap', linecapOptions, 'round'),
     strokeLinejoin: select('Actual line join', linejoinOptions, 'round')
   };
 
   const expectedStyle = {
     fill: color('Expected fill color', '#5e6066'),
-    fillOpacity: number('Expected fill opacity', 0.8, opacityOptions),
+    fillOpacity: number('Expected fill opacity', 0.6, opacityOptions),
     stroke: color('Expected color', '#5e6066'),
     strokeWidth: number('Expected stroke width', 2),
-    strokeOpacity: number('Expected stroke opacity', 0.8, opacityOptions),
+    strokeOpacity: number('Expected stroke opacity', 1, opacityOptions),
     strokeLinecap: select('Expected line cap', linecapOptions, 'round'),
     strokeLinejoin: select('Expected line join', linejoinOptions, 'round')
   };
