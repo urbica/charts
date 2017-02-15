@@ -23,5 +23,13 @@ import { TrendAreaChart } from '@urbica/components';
 ## Example
 
 ```js
+const data = [];
+for (let i = 1; i <= 10; i += 1) {
+  const date = new Date(3600 * 24 * 1000 * i);
+  const actual = Math.random();
+  const expected = Math.random();
+  data.push({ date, expected, actual });
+}
+
 <TrendAreaChart data={data} width={1000} height={100}/>
 ```

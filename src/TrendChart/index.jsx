@@ -54,7 +54,7 @@ const TrendChart = (props) => {
 
 TrendChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.any,
+    date: PropTypes.instanceOf(Date).isRequired,
     actual: PropTypes.any,
     expected: PropTypes.any
   })).isRequired,
