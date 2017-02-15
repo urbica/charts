@@ -14,12 +14,10 @@ import { TrendAreaChart } from '@urbica/components';
 
 * data: array of objects `{ key, actual, expected }` **required**
 * margins: `{ top, right, bottom, left }`
-* actualStyle: actual line style object
-* expectedStyle: expected line style object
+* actualStyle: actual area style object
+* expectedStyle: expected area style object
 * width: chart width **required**
 * height: chart height **required**
-* actualColor: actual line color
-* expectedColor: expected line color
 
 
 ## Example

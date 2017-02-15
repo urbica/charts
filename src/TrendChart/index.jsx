@@ -4,47 +4,47 @@ import { line } from 'd3-shape';
 import { extent } from 'd3-array';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
-const getLine = (width, height, data, key) => {
-  const x = scaleTime().range([0, width]);
-  const y = scaleLinear().range([height, 0]);
-  const context = path();
+const getContexts = (width, height, data) => {
+  const actualContext = path();
+  const expectedContext = path();
 
-  const newLine = line()
-    .context(context)
+  const x = scaleTime()
+    .domain(extent(data, d => d.date))
+    .range([0, width]);
+
+  const y = scaleLinear()
+    .domain(extent(data, d => d.expected))
+    .range([height, 0]);
+
+  const actualLineGenerator = line()
     .x(d => x(d.date))
-    .y(d => y(d[key]));
+    .y(d => y(d.actual))
+    .context(actualContext)
+    .defined(d => !!d.actual);
 
-  x.domain(extent(data, d => d.date));
-  y.domain(extent(data, d => d[key]));
+  const expectedLineGenerator = line()
+    .x(d => x(d.date))
+    .y(d => y(d.expected))
+    .context(expectedContext)
+    .defined(d => !!d.expected);
 
-  newLine(data);
+  actualLineGenerator(data);
+  expectedLineGenerator(data);
 
-  return context;
+  return { actualContext, expectedContext };
 };
 
 const TrendChart = (props) => {
   const { data, actualStyle, expectedStyle, width, height, margins } = props;
-
-  const actualLine = getLine(width, height, data, 'actual');
-  const expectedLine = getLine(width, height, data, 'expected');
+  const { actualContext, expectedContext } = getContexts(width, height, data);
 
   const transform = `translate(${margins.left}, ${margins.top})`;
 
   return (
     <svg height={height} width={width}>
       <g transform={transform}>
-        <path
-          d={expectedLine.toString()}
-          fill="none"
-          style={expectedStyle}
-          stroke={expectedStyle.stroke}
-        />
-        <path
-          d={actualLine.toString()}
-          fill="none"
-          style={actualStyle}
-          stroke={actualStyle.stroke}
-        />
+        <path d={expectedContext.toString()} fill="none" style={expectedStyle} />
+        <path d={actualContext.toString()} fill="none" style={actualStyle} />
       </g>
     </svg>
   );
@@ -65,12 +65,16 @@ TrendChart.propTypes = {
   actualStyle: PropTypes.shape({
     stroke: PropTypes.string,
     strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number
+    strokeOpacity: PropTypes.number,
+    strokeLinecap: PropTypes.string,
+    strokeLinejoin: PropTypes.string
   }),
   expectedStyle: PropTypes.shape({
     stroke: PropTypes.string,
     strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number
+    strokeOpacity: PropTypes.number,
+    strokeLinecap: PropTypes.string,
+    strokeLinejoin: PropTypes.string
   }),
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired
@@ -80,12 +84,16 @@ TrendChart.defaultProps = {
   actualStyle: {
     stroke: '#ee675a',
     strokeWidth: 2,
-    strokeOpacity: 0.8
+    strokeOpacity: 0.8,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round'
   },
   expectedStyle: {
     stroke: '#5e6066',
     strokeWidth: 2,
-    strokeOpacity: 0.8
+    strokeOpacity: 0.8,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round'
   },
   margins: {
     top: 0,

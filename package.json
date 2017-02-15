@@ -32,7 +32,6 @@
     "react-dom": "15.4.2"
   },
   "devDependencies": {
-    "@kadira/react-storybook-addon-info": "3.3.0",
     "@kadira/storybook": "2.35.3",
     "@kadira/storybook-addon-knobs": "1.7.1",
     "@kadira/storybook-addon-options": "1.0.1",

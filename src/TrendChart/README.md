@@ -18,8 +18,6 @@ import { TrendChart } from '@urbica/components';
 * expectedStyle: expected line style object
 * width: chart width **required**
 * height: chart height **required**
-* actualColor: actual line color
-* expectedColor: expected line color
 
 
 ## Example
