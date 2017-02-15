@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { path } from 'd3-path';
-import { area } from 'd3-shape';
 import { extent } from 'd3-array';
+import { area, curveBasis } from 'd3-shape';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
 const getContexts = (width, height, data) => {
@@ -20,6 +20,7 @@ const getContexts = (width, height, data) => {
     .x(d => x(d.date))
     .y1(d => y(d.actual))
     .y0(y(0))
+    .curve(curveBasis)
     .context(actualContext)
     .defined(d => !!d.actual);
 
@@ -27,6 +28,7 @@ const getContexts = (width, height, data) => {
     .x(d => x(d.date))
     .y1(d => y(d.expected))
     .y0(y(0))
+    .curve(curveBasis)
     .context(expectedContext)
     .defined(d => !!d.expected);
 

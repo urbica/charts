@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { path } from 'd3-path';
-import { line } from 'd3-shape';
 import { extent } from 'd3-array';
+import { line, curveBasis } from 'd3-shape';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
 const getContexts = (width, height, data) => {
@@ -19,12 +19,14 @@ const getContexts = (width, height, data) => {
   const actualLineGenerator = line()
     .x(d => x(d.date))
     .y(d => y(d.actual))
+    .curve(curveBasis)
     .context(actualContext)
     .defined(d => !!d.actual);
 
   const expectedLineGenerator = line()
     .x(d => x(d.date))
     .y(d => y(d.expected))
+    .curve(curveBasis)
     .context(expectedContext)
     .defined(d => !!d.expected);
 
