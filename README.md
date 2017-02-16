@@ -12,9 +12,9 @@ npm i -S @urbica/components
 
 ### Line
 
+```js
 import { Line } from '@urbica/components';
 
-```js
 <Line
   data={data}
   x={d => d.key}
@@ -28,9 +28,9 @@ import { Line } from '@urbica/components';
 
 ### Area
 
+```js
 import { Area } from '@urbica/components';
 
-```js
 <Area
   data={data}
   x={d => d.key}
@@ -44,9 +44,9 @@ import { Area } from '@urbica/components';
 
 ### Axis
 
+```js
 import { Axis } from '@urbica/components';
 
-```js
 <Axis
   scale={xScale}
   ticks={timeDay}
