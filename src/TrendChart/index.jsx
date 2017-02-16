@@ -1,52 +1,35 @@
 import React, { PropTypes } from 'react';
-import { path } from 'd3-path';
 import { extent } from 'd3-array';
-import { line, curveBasis } from 'd3-shape';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
-const getContexts = (width, height, data) => {
-  const actualContext = path();
-  const expectedContext = path();
-
-  const x = scaleTime()
-    .domain(extent(data, d => d.date))
-    .range([0, width]);
-
-  const y = scaleLinear()
-    .domain(extent(data, d => d.expected))
-    .range([height, 0]);
-
-  const actualLineGenerator = line()
-    .x(d => x(d.date))
-    .y(d => y(d.actual))
-    .curve(curveBasis)
-    .context(actualContext)
-    .defined(d => !!d.actual);
-
-  const expectedLineGenerator = line()
-    .x(d => x(d.date))
-    .y(d => y(d.expected))
-    .curve(curveBasis)
-    .context(expectedContext)
-    .defined(d => !!d.expected);
-
-  actualLineGenerator(data);
-  expectedLineGenerator(data);
-
-  return { actualContext, expectedContext };
-};
+import Line from '../Line';
 
 const TrendChart = (props) => {
   const { data, actualStyle, expectedStyle, width, height, margins } = props;
-  const { actualContext, expectedContext } = getContexts(width, height, data);
-
-  const transform = `translate(${margins.left}, ${margins.top})`;
+  const xScale = scaleTime().domain(extent(data, d => d.date)).range([0, width]);
+  const yScale = scaleLinear().domain(extent(data, d => d.expected)).range([height, 0]);
 
   return (
     <svg height={height} width={width}>
-      <g transform={transform}>
-        <path d={expectedContext.toString()} fill="none" style={expectedStyle} />
-        <path d={actualContext.toString()} fill="none" style={actualStyle} />
+      <g transform={`translate(${margins.left}, ${margins.top})`}>
+        <Line
+          data={data}
+          x={d => d.date}
+          y={d => d.expected}
+          style={expectedStyle}
+          xScale={xScale}
+          yScale={yScale}
+          defined={d => !!d.expected}
+        />
+        <Line
+          data={data}
+          x={d => d.date}
+          y={d => d.actual}
+          style={actualStyle}
+          xScale={xScale}
+          yScale={yScale}
+          defined={d => !!d.actual}
+        />
       </g>
     </svg>
   );

@@ -1,65 +1,44 @@
 import React, { PropTypes } from 'react';
-import { path } from 'd3-path';
 import { extent } from 'd3-array';
-import { area, curveBasis } from 'd3-shape';
+import { timeDay } from 'd3-time';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
-const getContexts = (width, height, data) => {
-  const actualContext = path();
-  const expectedContext = path();
-
-  const x = scaleTime()
-    .domain(extent(data, d => d.date))
-    .range([0, width]);
-
-  const y = scaleLinear()
-    .domain(extent(data, d => d.expected))
-    .range([height, 0]);
-
-  const actualAreaGenerator = area()
-    .x(d => x(d.date))
-    .y1(d => y(d.actual))
-    .y0(y(0))
-    .curve(curveBasis)
-    .context(actualContext)
-    .defined(d => !!d.actual);
-
-  const expectedAreaGenerator = area()
-    .x(d => x(d.date))
-    .y1(d => y(d.expected))
-    .y0(y(0))
-    .curve(curveBasis)
-    .context(expectedContext)
-    .defined(d => !!d.expected);
-
-  actualAreaGenerator(data);
-  expectedAreaGenerator(data);
-
-  return { actualContext, expectedContext };
-};
+import Axis from '../Axis';
+import Area from '../Area';
 
 const TrendAreaChart = (props) => {
   const { data, actualStyle, expectedStyle, width, height, margins } = props;
-  const { actualContext, expectedContext } = getContexts(width, height, data);
-
-  const transform = `translate(${margins.left}, ${margins.top})`;
+  const xScale = scaleTime().domain(extent(data, d => d.date)).range([0, width]);
+  const yScale = scaleLinear().domain(extent(data, d => d.expected)).range([height, 0]);
 
   return (
     <svg height={height} width={width}>
-      <g transform={transform}>
-        <path
-          d={expectedContext.toString()}
-          fill={actualStyle.fill}
+      <g transform={`translate(${margins.left}, ${margins.top})`}>
+        <Area
+          data={data}
+          x={d => d.date}
+          y={d => d.expected}
           style={expectedStyle}
-          stroke={expectedStyle.stroke}
+          xScale={xScale}
+          yScale={yScale}
+          defined={d => !!d.expected}
         />
-        <path
-          d={actualContext.toString()}
-          fill={actualStyle.fill}
+        <Area
+          data={data}
+          x={d => d.date}
+          y={d => d.actual}
           style={actualStyle}
-          stroke={actualStyle.stroke}
+          xScale={xScale}
+          yScale={yScale}
+          defined={d => !!d.actual}
         />
       </g>
+      <Axis
+        scale={xScale}
+        ticks={timeDay}
+        transform={`translate(0, ${height})`}
+        orientation={'bottom'}
+      />
     </svg>
   );
 };
@@ -70,6 +49,12 @@ TrendAreaChart.propTypes = {
     actual: PropTypes.any,
     expected: PropTypes.any
   })).isRequired,
+  // paddings: PropTypes.shape({
+  //   left: PropTypes.number,
+  //   right: PropTypes.number,
+  //   top: PropTypes.number,
+  //   bottom: PropTypes.number
+  // }),
   margins: PropTypes.shape({
     left: PropTypes.number,
     right: PropTypes.number,
@@ -95,6 +80,18 @@ TrendAreaChart.propTypes = {
 };
 
 TrendAreaChart.defaultProps = {
+  paddings: {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  },
+  margins: {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  },
   actualStyle: {
     fill: '#ee675a',
     fillOpacity: 0.6,
@@ -112,12 +109,6 @@ TrendAreaChart.defaultProps = {
     strokeOpacity: 1,
     strokeLinecap: 'round',
     strokeLinejoin: 'round'
-  },
-  margins: {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
   }
 };
 
