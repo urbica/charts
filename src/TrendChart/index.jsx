@@ -1,16 +1,25 @@
 import React, { PropTypes } from 'react';
 import { extent } from 'd3-array';
+import { timeDay } from 'd3-time';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
+import Axis from '../Axis';
 import Line from '../Line';
 
 const TrendChart = (props) => {
-  const { data, actualStyle, expectedStyle, width, height, margins } = props;
-  const xScale = scaleTime().domain(extent(data, d => d.date)).range([0, width]);
-  const yScale = scaleLinear().domain(extent(data, d => d.expected)).range([height, 0]);
+  const { data, actualStyle, expectedStyle, margins } = props;
+
+  const width = props.width - margins.left - margins.right;
+  const height = props.height - margins.top - margins.bottom;
+
+  const xRange = props.xRange || [0, width - margins.left - margins.right];
+  const yRange = props.yRange || [height - margins.top - margins.bottom, 0];
+
+  const xScale = scaleTime().domain(extent(data, d => d.date)).range(xRange);
+  const yScale = scaleLinear().domain(extent(data, d => d.expected)).range(yRange);
 
   return (
-    <svg height={height} width={width}>
+    <svg height={props.height} width={props.width}>
       <g transform={`translate(${margins.left}, ${margins.top})`}>
         <Line
           data={data}
@@ -29,6 +38,12 @@ const TrendChart = (props) => {
           xScale={xScale}
           yScale={yScale}
           defined={d => !!d.actual}
+        />
+        <Axis
+          scale={xScale}
+          ticks={timeDay}
+          transform={`translate(0, ${height})`}
+          orientation={'bottom'}
         />
       </g>
     </svg>
@@ -62,7 +77,9 @@ TrendChart.propTypes = {
     strokeLinejoin: PropTypes.string
   }),
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
+  xRange: PropTypes.arrayOf(PropTypes.number),
+  yRange: PropTypes.arrayOf(PropTypes.number)
 };
 
 TrendChart.defaultProps = {

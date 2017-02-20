@@ -13,7 +13,9 @@ class Axis extends PureComponent {
   componentDidMount() {
     const { orientation, scale, ticks } = this.props;
     const axisGenerator = orientations[orientation];
-    const axis = axisGenerator(scale).ticks(ticks);
+    const axis = axisGenerator(scale);
+    if (ticks) axis.ticks(ticks);
+
     select(this.axis).call(axis);
   }
 
@@ -27,12 +29,14 @@ class Axis extends PureComponent {
 
 Axis.propTypes = {
   orientation: PropTypes.string.isRequired,
-  transform: PropTypes.string.isRequired,
   scale: PropTypes.func.isRequired,
-  ticks: PropTypes.func.isRequired
+  transform: PropTypes.string,
+  ticks: PropTypes.func
 };
 
 Axis.defaultProps = {
+  ticks: undefined,
+  transform: undefined
 };
 
 export default Axis;

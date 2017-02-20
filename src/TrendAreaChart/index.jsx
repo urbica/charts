@@ -7,13 +7,22 @@ import Axis from '../Axis';
 import Area from '../Area';
 
 const TrendAreaChart = (props) => {
-  const { data, actualStyle, expectedStyle, width, height, margins } = props;
-  const xScale = scaleTime().domain(extent(data, d => d.date)).range([0, width]);
-  const yScale = scaleLinear().domain(extent(data, d => d.expected)).range([height, 0]);
+  const { data, actualStyle, expectedStyle, margins } = props;
+
+  const width = props.width - margins.left - margins.right;
+  const height = props.height - margins.top - margins.bottom;
+
+  const xRange = props.xRange || [0, width];
+  const yRange = props.yRange || [height, 0];
+
+  const xScale = scaleTime().domain(extent(data, d => d.date)).range(xRange);
+  const yScale = scaleLinear().domain(extent(data, d => d.expected)).range(yRange);
+
+  const transform = `translate(${margins.left}, ${margins.top})`;
 
   return (
-    <svg height={height} width={width}>
-      <g transform={`translate(${margins.left}, ${margins.top})`}>
+    <svg height={props.height} width={props.width}>
+      <g transform={transform}>
         <Area
           data={data}
           x={d => d.date}
@@ -32,13 +41,13 @@ const TrendAreaChart = (props) => {
           yScale={yScale}
           defined={d => !!d.actual}
         />
+        <Axis
+          scale={xScale}
+          ticks={timeDay}
+          transform={`translate(0, ${height})`}
+          orientation={'bottom'}
+        />
       </g>
-      <Axis
-        scale={xScale}
-        ticks={timeDay}
-        transform={`translate(0, ${height})`}
-        orientation={'bottom'}
-      />
     </svg>
   );
 };
@@ -49,12 +58,6 @@ TrendAreaChart.propTypes = {
     actual: PropTypes.any,
     expected: PropTypes.any
   })).isRequired,
-  // paddings: PropTypes.shape({
-  //   left: PropTypes.number,
-  //   right: PropTypes.number,
-  //   top: PropTypes.number,
-  //   bottom: PropTypes.number
-  // }),
   margins: PropTypes.shape({
     left: PropTypes.number,
     right: PropTypes.number,
@@ -76,7 +79,9 @@ TrendAreaChart.propTypes = {
     strokeLinejoin: PropTypes.string
   }),
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
+  xRange: PropTypes.arrayOf(PropTypes.number),
+  yRange: PropTypes.arrayOf(PropTypes.number)
 };
 
 TrendAreaChart.defaultProps = {
@@ -89,7 +94,7 @@ TrendAreaChart.defaultProps = {
   margins: {
     top: 0,
     right: 0,
-    bottom: 0,
+    bottom: 20,
     left: 0
   },
   actualStyle: {
