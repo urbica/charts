@@ -22,8 +22,8 @@ export default () => {
   const margins = {
     top: 0,
     right: 0,
-    bottom: 0,
-    left: 0
+    bottom: 20,
+    left: 20
   };
 
   const opacityOptions = { range: true, min: 0, max: 1, step: 0.1 };

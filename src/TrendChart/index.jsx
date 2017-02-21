@@ -1,22 +1,21 @@
 import React, { PropTypes } from 'react';
 import { extent } from 'd3-array';
-import { timeDay } from 'd3-time';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
-import Axis from '../Axis';
 import Line from '../Line';
+import { getDomain } from '../utils';
 
 const TrendChart = (props) => {
-  const { data, actualStyle, expectedStyle, margins } = props;
+  const { data, margins, actualStyle, expectedStyle } = props;
 
   const width = props.width - margins.left - margins.right;
   const height = props.height - margins.top - margins.bottom;
 
-  const xRange = props.xRange || [0, width - margins.left - margins.right];
-  const yRange = props.yRange || [height - margins.top - margins.bottom, 0];
+  const xDomain = extent(data, d => d.date);
+  const yDomain = getDomain(['actual', 'expected'], data);
 
-  const xScale = scaleTime().domain(extent(data, d => d.date)).range(xRange);
-  const yScale = scaleLinear().domain(extent(data, d => d.expected)).range(yRange);
+  const xScale = scaleTime().range([0, width]).domain(xDomain);
+  const yScale = scaleLinear().range([height, 0]).domain(yDomain);
 
   return (
     <svg height={props.height} width={props.width}>
@@ -28,7 +27,7 @@ const TrendChart = (props) => {
           style={expectedStyle}
           xScale={xScale}
           yScale={yScale}
-          defined={d => !!d.expected}
+          defined={d => !isNaN(d.expected)}
         />
         <Line
           data={data}
@@ -37,13 +36,7 @@ const TrendChart = (props) => {
           style={actualStyle}
           xScale={xScale}
           yScale={yScale}
-          defined={d => !!d.actual}
-        />
-        <Axis
-          scale={xScale}
-          ticks={timeDay}
-          transform={`translate(0, ${height})`}
-          orientation={'bottom'}
+          defined={d => !isNaN(d.actual)}
         />
       </g>
     </svg>
