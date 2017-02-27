@@ -18,8 +18,7 @@
   },
   "pre-commit": [
     "lint",
-    "build",
-    "build-storybook"
+    "build"
   ],
   "keywords": [
     "d3",
