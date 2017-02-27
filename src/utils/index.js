@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+
 export const getDomain = (keys, items) => {
   const getValues = item =>
     keys.reduce((acc, key) => {
