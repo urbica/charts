@@ -11,12 +11,23 @@ const orientations = {
 
 class Axis extends PureComponent {
   componentDidMount() {
-    const { orientation, scale, ticks } = this.props;
+    const { orientation, scale, ticks, axisStyle, textStyle } = this.props;
     const axisGenerator = orientations[orientation];
     const axis = axisGenerator(scale);
     if (ticks) axis.ticks(ticks);
 
-    select(this.axis).call(axis);
+    const el = select(this.axis);
+    el.call(axis);
+
+    const elPath = el.selectAll('path');
+    const elLine = el.selectAll('line');
+    Object.entries(axisStyle).forEach(([key, value]) => {
+      elPath.style(key, value);
+      elLine.style(key, value);
+    });
+
+    const elText = el.selectAll('text');
+    Object.entries(textStyle).forEach(([key, value]) => elText.style(key, value));
   }
 
   render() {
@@ -31,12 +42,36 @@ Axis.propTypes = {
   orientation: PropTypes.string.isRequired,
   scale: PropTypes.func.isRequired,
   transform: PropTypes.string,
-  ticks: PropTypes.func
+  ticks: PropTypes.func,
+  axisStyle: PropTypes.shape({
+    fill: PropTypes.string,
+    fillOpacity: PropTypes.string,
+    stroke: PropTypes.string,
+    strokeWidth: PropTypes.number,
+    strokeOpacity: PropTypes.number,
+    strokeLinecap: PropTypes.string,
+    strokeLinejoin: PropTypes.string
+  }),
+  textStyle: PropTypes.shape({
+    fill: PropTypes.string,
+    fillOpacity: PropTypes.string,
+    stroke: PropTypes.string,
+    strokeWidth: PropTypes.number,
+    strokeOpacity: PropTypes.number,
+    strokeLinecap: PropTypes.string,
+    strokeLinejoin: PropTypes.string
+  })
 };
 
 Axis.defaultProps = {
   ticks: undefined,
-  transform: undefined
+  transform: undefined,
+  axisStyle: {
+    stroke: '#000'
+  },
+  textStyle: {
+    fill: '#000'
+  }
 };
 
 export default Axis;

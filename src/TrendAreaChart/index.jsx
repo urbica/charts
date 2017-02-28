@@ -7,7 +7,7 @@ import Area from '../Area';
 import { getDomain } from '../utils';
 
 const TrendAreaChart = (props) => {
-  const { data, margins, actualStyle, expectedStyle } = props;
+  const { data, margins, actualStyle, expectedStyle, axisStyle, textStyle } = props;
 
   const width = props.width - margins.left - margins.right;
   const height = props.height - margins.top - margins.bottom;
@@ -44,10 +44,14 @@ const TrendAreaChart = (props) => {
         <Axis
           scale={xScale}
           transform={`translate(0, ${height})`}
+          axisStyle={axisStyle}
+          textStyle={textStyle}
           orientation={'bottom'}
         />
         <Axis
           scale={yScale}
+          axisStyle={axisStyle}
+          textStyle={textStyle}
           orientation={'left'}
         />
       </g>
@@ -81,10 +85,26 @@ TrendAreaChart.propTypes = {
     strokeLinecap: PropTypes.string,
     strokeLinejoin: PropTypes.string
   }),
+  axisStyle: PropTypes.shape({
+    fill: PropTypes.string,
+    fillOpacity: PropTypes.string,
+    stroke: PropTypes.string,
+    strokeWidth: PropTypes.number,
+    strokeOpacity: PropTypes.number,
+    strokeLinecap: PropTypes.string,
+    strokeLinejoin: PropTypes.string
+  }),
+  textStyle: PropTypes.shape({
+    fill: PropTypes.string,
+    fillOpacity: PropTypes.string,
+    stroke: PropTypes.string,
+    strokeWidth: PropTypes.number,
+    strokeOpacity: PropTypes.number,
+    strokeLinecap: PropTypes.string,
+    strokeLinejoin: PropTypes.string
+  }),
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  xRange: PropTypes.arrayOf(PropTypes.number),
-  yRange: PropTypes.arrayOf(PropTypes.number)
+  height: PropTypes.number.isRequired
 };
 
 TrendAreaChart.defaultProps = {
@@ -117,6 +137,12 @@ TrendAreaChart.defaultProps = {
     strokeOpacity: 1,
     strokeLinecap: 'round',
     strokeLinejoin: 'round'
+  },
+  axisStyle: {
+    stroke: '#000'
+  },
+  textStyle: {
+    fill: '#000'
   }
 };
 

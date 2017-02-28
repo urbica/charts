@@ -50,6 +50,14 @@ export default () => {
     strokeLinejoin: select('Expected line join', linejoinOptions, 'round')
   };
 
+  const axisStyle = {
+    stroke: color('Axis stroke color', '#fff')
+  };
+
+  const textStyle = {
+    fill: color('Axis text fill color', '#fff')
+  };
+
   return (
     <TrendAreaChart
       data={data}
@@ -58,6 +66,8 @@ export default () => {
       margins={object('margins', margins)}
       actualStyle={actualStyle}
       expectedStyle={expectedStyle}
+      axisStyle={axisStyle}
+      textStyle={textStyle}
     />
   );
 };
