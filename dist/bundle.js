@@ -6550,7 +6550,9 @@ var TrendAreaChart = function TrendAreaChart(props) {
   var data = props.data,
       margins = props.margins,
       actualStyle = props.actualStyle,
-      expectedStyle = props.expectedStyle;
+      expectedStyle = props.expectedStyle,
+      axisStyle = props.axisStyle,
+      textStyle = props.textStyle;
 
 
   var width = props.width - margins.left - margins.right;
@@ -6605,10 +6607,14 @@ var TrendAreaChart = function TrendAreaChart(props) {
       _react2.default.createElement(_Axis2.default, {
         scale: xScale,
         transform: 'translate(0, ' + height + ')',
+        axisStyle: axisStyle,
+        textStyle: textStyle,
         orientation: 'bottom'
       }),
       _react2.default.createElement(_Axis2.default, {
         scale: yScale,
+        axisStyle: axisStyle,
+        textStyle: textStyle,
         orientation: 'left'
       })
     )
@@ -6641,10 +6647,26 @@ TrendAreaChart.propTypes = {
     strokeLinecap: _react.PropTypes.string,
     strokeLinejoin: _react.PropTypes.string
   }),
+  axisStyle: _react.PropTypes.shape({
+    fill: _react.PropTypes.string,
+    fillOpacity: _react.PropTypes.string,
+    stroke: _react.PropTypes.string,
+    strokeWidth: _react.PropTypes.number,
+    strokeOpacity: _react.PropTypes.number,
+    strokeLinecap: _react.PropTypes.string,
+    strokeLinejoin: _react.PropTypes.string
+  }),
+  textStyle: _react.PropTypes.shape({
+    fill: _react.PropTypes.string,
+    fillOpacity: _react.PropTypes.string,
+    stroke: _react.PropTypes.string,
+    strokeWidth: _react.PropTypes.number,
+    strokeOpacity: _react.PropTypes.number,
+    strokeLinecap: _react.PropTypes.string,
+    strokeLinejoin: _react.PropTypes.string
+  }),
   width: _react.PropTypes.number.isRequired,
-  height: _react.PropTypes.number.isRequired,
-  xRange: _react.PropTypes.arrayOf(_react.PropTypes.number),
-  yRange: _react.PropTypes.arrayOf(_react.PropTypes.number)
+  height: _react.PropTypes.number.isRequired
 };
 
 TrendAreaChart.defaultProps = {
@@ -6677,6 +6699,12 @@ TrendAreaChart.defaultProps = {
     strokeOpacity: 1,
     strokeLinecap: 'round',
     strokeLinejoin: 'round'
+  },
+  axisStyle: {
+    stroke: '#000'
+  },
+  textStyle: {
+    fill: '#000'
   }
 };
 
@@ -6904,6 +6932,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(22);
@@ -6944,13 +6974,36 @@ var Axis = function (_PureComponent) {
       var _props = this.props,
           orientation = _props.orientation,
           scale = _props.scale,
-          ticks = _props.ticks;
+          ticks = _props.ticks,
+          axisStyle = _props.axisStyle,
+          textStyle = _props.textStyle;
 
       var axisGenerator = orientations[orientation];
       var axis = axisGenerator(scale);
       if (ticks) axis.ticks(ticks);
 
-      (0, _d3Selection.select)(this.axis).call(axis);
+      var el = (0, _d3Selection.select)(this.axis);
+      el.call(axis);
+
+      var elPath = el.selectAll('path');
+      var elLine = el.selectAll('line');
+      Object.entries(axisStyle).forEach(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            key = _ref2[0],
+            value = _ref2[1];
+
+        elPath.style(key, value);
+        elLine.style(key, value);
+      });
+
+      var elText = el.selectAll('text');
+      Object.entries(textStyle).forEach(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            key = _ref4[0],
+            value = _ref4[1];
+
+        return elText.style(key, value);
+      });
     }
   }, {
     key: 'render',
@@ -6959,8 +7012,8 @@ var Axis = function (_PureComponent) {
 
       var transform = this.props.transform;
 
-      return _react2.default.createElement('g', { ref: function ref(_ref) {
-          _this2.axis = _ref;
+      return _react2.default.createElement('g', { ref: function ref(_ref5) {
+          _this2.axis = _ref5;
         }, transform: transform });
     }
   }]);
@@ -6972,12 +7025,36 @@ Axis.propTypes = {
   orientation: _react.PropTypes.string.isRequired,
   scale: _react.PropTypes.func.isRequired,
   transform: _react.PropTypes.string,
-  ticks: _react.PropTypes.func
+  ticks: _react.PropTypes.func,
+  axisStyle: _react.PropTypes.shape({
+    fill: _react.PropTypes.string,
+    fillOpacity: _react.PropTypes.string,
+    stroke: _react.PropTypes.string,
+    strokeWidth: _react.PropTypes.number,
+    strokeOpacity: _react.PropTypes.number,
+    strokeLinecap: _react.PropTypes.string,
+    strokeLinejoin: _react.PropTypes.string
+  }),
+  textStyle: _react.PropTypes.shape({
+    fill: _react.PropTypes.string,
+    fillOpacity: _react.PropTypes.string,
+    stroke: _react.PropTypes.string,
+    strokeWidth: _react.PropTypes.number,
+    strokeOpacity: _react.PropTypes.number,
+    strokeLinecap: _react.PropTypes.string,
+    strokeLinejoin: _react.PropTypes.string
+  })
 };
 
 Axis.defaultProps = {
   ticks: undefined,
-  transform: undefined
+  transform: undefined,
+  axisStyle: {
+    stroke: '#000'
+  },
+  textStyle: {
+    fill: '#000'
+  }
 };
 
 exports.default = Axis;
