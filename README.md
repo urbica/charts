@@ -10,6 +10,13 @@ npm i -S @urbica/components
 
 ## Components
 
+### Chart
+
+```js
+import { Chart } from '@urbica/components';
+<Chart width={100} height={100} />
+```
+
 ### Line
 
 ```js
