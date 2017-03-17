@@ -4,5 +4,6 @@ import Chart from './Chart';
 import Line from './Line';
 import TrendChart from './TrendChart';
 import TrendAreaChart from './TrendAreaChart';
+import { getDomain } from './utils';
 
-export { Area, Axis, Chart, Line, TrendChart, TrendAreaChart };
+export { Area, Axis, Chart, Line, TrendChart, TrendAreaChart, getDomain };
