@@ -4,6 +4,7 @@ import { scaleLinear, scaleTime } from 'd3-scale';
 
 import Axis from '../Axis';
 import Area from '../Area';
+import Chart from '../Chart';
 import { getDomain } from '../utils';
 
 const TrendAreaChart = (props) => {
@@ -19,43 +20,41 @@ const TrendAreaChart = (props) => {
   const yScale = scaleLinear().range([height, 0]).domain(yDomain);
 
   return (
-    <svg width={props.width} height={props.height}>
-      <g transform={`translate(${margins.left}, ${margins.top})`}>
-        <Area
-          data={data}
-          x={d => d.date}
-          y0={yScale(yDomain[0])}
-          y1={d => d.expected}
-          style={expectedStyle}
-          xScale={xScale}
-          yScale={yScale}
-          defined={d => !isNaN(d.expected)}
-        />
-        <Area
-          data={data}
-          x={d => d.date}
-          y0={yScale(yDomain[0])}
-          y1={d => d.actual}
-          style={actualStyle}
-          xScale={xScale}
-          yScale={yScale}
-          defined={d => !isNaN(d.actual)}
-        />
-        <Axis
-          scale={xScale}
-          transform={`translate(0, ${height})`}
-          axisStyle={axisStyle}
-          textStyle={textStyle}
-          orientation={'bottom'}
-        />
-        <Axis
-          scale={yScale}
-          axisStyle={axisStyle}
-          textStyle={textStyle}
-          orientation={'left'}
-        />
-      </g>
-    </svg>
+    <Chart height={props.height} width={props.width} margins={margins}>
+      <Area
+        data={data}
+        x={d => d.date}
+        y0={yScale(yDomain[0])}
+        y1={d => d.expected}
+        style={expectedStyle}
+        xScale={xScale}
+        yScale={yScale}
+        defined={d => !isNaN(d.expected)}
+      />
+      <Area
+        data={data}
+        x={d => d.date}
+        y0={yScale(yDomain[0])}
+        y1={d => d.actual}
+        style={actualStyle}
+        xScale={xScale}
+        yScale={yScale}
+        defined={d => !isNaN(d.actual)}
+      />
+      <Axis
+        scale={xScale}
+        transform={`translate(0, ${height})`}
+        axisStyle={axisStyle}
+        textStyle={textStyle}
+        orientation={'bottom'}
+      />
+      <Axis
+        scale={yScale}
+        axisStyle={axisStyle}
+        textStyle={textStyle}
+        orientation={'left'}
+      />
+    </Chart>
   );
 };
 

@@ -3,6 +3,7 @@ import { extent } from 'd3-array';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
 import Line from '../Line';
+import Chart from '../Chart';
 import { getDomain } from '../utils';
 
 const TrendChart = (props) => {
@@ -18,28 +19,26 @@ const TrendChart = (props) => {
   const yScale = scaleLinear().range([height, 0]).domain(yDomain);
 
   return (
-    <svg height={props.height} width={props.width}>
-      <g transform={`translate(${margins.left}, ${margins.top})`}>
-        <Line
-          data={data}
-          x={d => d.date}
-          y={d => d.expected}
-          style={expectedStyle}
-          xScale={xScale}
-          yScale={yScale}
-          defined={d => !isNaN(d.expected)}
-        />
-        <Line
-          data={data}
-          x={d => d.date}
-          y={d => d.actual}
-          style={actualStyle}
-          xScale={xScale}
-          yScale={yScale}
-          defined={d => !isNaN(d.actual)}
-        />
-      </g>
-    </svg>
+    <Chart height={props.height} width={props.width} margins={margins}>
+      <Line
+        data={data}
+        x={d => d.date}
+        y={d => d.expected}
+        style={expectedStyle}
+        xScale={xScale}
+        yScale={yScale}
+        defined={d => !isNaN(d.expected)}
+      />
+      <Line
+        data={data}
+        x={d => d.date}
+        y={d => d.actual}
+        style={actualStyle}
+        xScale={xScale}
+        yScale={yScale}
+        defined={d => !isNaN(d.actual)}
+      />
+    </Chart>
   );
 };
 
@@ -70,9 +69,9 @@ TrendChart.propTypes = {
     strokeLinejoin: PropTypes.string
   }),
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  xRange: PropTypes.arrayOf(PropTypes.number),
-  yRange: PropTypes.arrayOf(PropTypes.number)
+  height: PropTypes.number.isRequired
+  // xRange: PropTypes.arrayOf(PropTypes.number),
+  // yRange: PropTypes.arrayOf(PropTypes.number)
 };
 
 TrendChart.defaultProps = {
