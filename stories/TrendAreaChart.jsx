@@ -1,27 +1,29 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import React from 'react';
+import { timeHour } from 'd3-time';
+import { timeFormat } from 'd3-time-format';
 import { color, object, number, select } from '@kadira/storybook-addon-knobs';
 import { TrendAreaChart } from '../src';
 
 const data = [];
-for (let i = 1; i <= 10; i += 1) {
-  const date = new Date(3600 * 24 * 1000 * i);
+for (let i = 0; i <= 10; i += 1) {
+  const date = new Date(2017, 1, 1, i);
   const actual = Math.random() * i;
   const expected = actual + Math.random();
   data.push({ date, expected, actual });
 }
 
 for (let i = 11; i <= 20; i += 1) {
-  const date = new Date(3600 * 24 * 1000 * i);
+  const date = new Date(2017, 1, 1, i);
   const expected = Math.random() * i;
   data.push({ date, expected });
 }
 
 export default () => {
   const margins = {
-    top: 0,
-    right: 0,
+    top: 20,
+    right: 20,
     bottom: 20,
     left: 20
   };
@@ -68,6 +70,8 @@ export default () => {
       expectedStyle={expectedStyle}
       axisStyle={axisStyle}
       textStyle={textStyle}
+      xTickFormat={timeFormat('%H')}
+      xTickArguments={[timeHour.every(1)]}
     />
   );
 };

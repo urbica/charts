@@ -47,12 +47,16 @@ const TrendAreaChart = (props) => {
         axisStyle={axisStyle}
         textStyle={textStyle}
         orientation={'bottom'}
+        tickFormat={props.xTickFormat}
+        tickArguments={props.xTickArguments}
       />
       <Axis
         scale={yScale}
         axisStyle={axisStyle}
         textStyle={textStyle}
         orientation={'left'}
+        tickFormat={props.yTickFormat}
+        tickArguments={props.yTickArguments}
       />
     </Chart>
   );
@@ -102,11 +106,31 @@ TrendAreaChart.propTypes = {
     strokeLinecap: PropTypes.string,
     strokeLinejoin: PropTypes.string
   }),
+  xTickArguments: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]),
+  xTickFormat: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]),
+  yTickArguments: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]),
+  yTickFormat: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]),
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired
 };
 
 TrendAreaChart.defaultProps = {
+  xTickArguments: undefined,
+  xTickFormat: undefined,
+  yTickArguments: undefined,
+  yTickFormat: undefined,
   paddings: {
     top: 0,
     right: 0,

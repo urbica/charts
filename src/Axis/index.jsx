@@ -11,10 +11,12 @@ const orientations = {
 
 class Axis extends PureComponent {
   componentDidMount() {
-    const { orientation, scale, ticks, axisStyle, textStyle } = this.props;
-    const axisGenerator = orientations[orientation];
-    const axis = axisGenerator(scale);
-    if (ticks) axis.ticks(ticks);
+    const { tickArguments, tickFormat, axisStyle, textStyle } = this.props;
+    const axisGenerator = orientations[this.props.orientation];
+    const axis = axisGenerator(this.props.scale);
+
+    if (tickFormat) axis.tickFormat(tickFormat);
+    if (tickArguments) axis.tickArguments(tickArguments);
 
     const el = select(this.axis);
     el.call(axis);
@@ -42,7 +44,14 @@ Axis.propTypes = {
   orientation: PropTypes.string.isRequired,
   scale: PropTypes.func.isRequired,
   transform: PropTypes.string,
-  ticks: PropTypes.func,
+  tickArguments: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]),
+  tickFormat: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]),
   axisStyle: PropTypes.shape({
     fill: PropTypes.string,
     fillOpacity: PropTypes.string,
@@ -64,7 +73,8 @@ Axis.propTypes = {
 };
 
 Axis.defaultProps = {
-  ticks: undefined,
+  tickArguments: undefined,
+  tickFormat: undefined,
   transform: undefined,
   axisStyle: {
     stroke: '#000'
