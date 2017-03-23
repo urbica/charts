@@ -86,7 +86,7 @@ TrendAreaChart.propTypes = {
   }),
   axisStyle: PropTypes.shape({
     fill: PropTypes.string,
-    fillOpacity: PropTypes.string,
+    fillOpacity: PropTypes.number,
     stroke: PropTypes.string,
     strokeWidth: PropTypes.number,
     strokeOpacity: PropTypes.number,
@@ -95,7 +95,7 @@ TrendAreaChart.propTypes = {
   }),
   textStyle: PropTypes.shape({
     fill: PropTypes.string,
-    fillOpacity: PropTypes.string,
+    fillOpacity: PropTypes.number,
     stroke: PropTypes.string,
     strokeWidth: PropTypes.number,
     strokeOpacity: PropTypes.number,
