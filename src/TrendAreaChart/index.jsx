@@ -1,66 +1,88 @@
-import React, { PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { extent } from 'd3-array';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
 import Axis from '../Axis';
 import Area from '../Area';
 import Chart from '../Chart';
+import DataSeries from '../DataSeries';
 import { getDomain } from '../utils';
+import { withTooltip } from '../Tooltip';
 
-const TrendAreaChart = (props) => {
-  const { data, margins, actualStyle, expectedStyle, axisStyle, textStyle } = props;
+class TrendAreaChart extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-  const width = props.width - margins.left - margins.right;
-  const height = props.height - margins.top - margins.bottom;
+  render() {
+    const { data, margins, actualStyle, expectedStyle, axisStyle, textStyle } = this.props;
 
-  const xDomain = extent(data, d => d.date);
-  const yDomain = getDomain(['actual', 'expected'], data);
+    const width = this.props.width - margins.left - margins.right;
+    const height = this.props.height - margins.top - margins.bottom;
 
-  const xScale = scaleTime().range([0, width]).domain(xDomain);
-  const yScale = scaleLinear().range([height, 0]).domain(yDomain);
+    const xDomain = extent(data, d => d.date);
+    const yDomain = getDomain(['actual', 'expected'], data);
 
-  return (
-    <Chart height={props.height} width={props.width} margins={margins}>
-      <Area
-        data={data}
-        x={d => d.date}
-        y0={yScale(yDomain[0])}
-        y1={d => d.expected}
-        style={expectedStyle}
-        xScale={xScale}
-        yScale={yScale}
-        defined={d => !isNaN(d.expected)}
-      />
-      <Area
-        data={data}
-        x={d => d.date}
-        y0={yScale(yDomain[0])}
-        y1={d => d.actual}
-        style={actualStyle}
-        xScale={xScale}
-        yScale={yScale}
-        defined={d => !isNaN(d.actual)}
-      />
-      <Axis
-        scale={xScale}
-        transform={`translate(0, ${height})`}
-        axisStyle={axisStyle}
-        textStyle={textStyle}
-        orientation={'bottom'}
-        tickFormat={props.xTickFormat}
-        tickArguments={props.xTickArguments}
-      />
-      <Axis
-        scale={yScale}
-        axisStyle={axisStyle}
-        textStyle={textStyle}
-        orientation={'left'}
-        tickFormat={props.yTickFormat}
-        tickArguments={props.yTickArguments}
-      />
-    </Chart>
-  );
-};
+    const xScale = scaleTime().range([0, width]).domain(xDomain);
+    const yScale = scaleLinear().range([height, 0]).domain(yDomain);
+
+    const DataSeriesWithTooltip = withTooltip(DataSeries);
+
+    return (
+      <Chart height={this.props.height} width={this.props.width} margins={margins}>
+        <DataSeriesWithTooltip
+          x={d => d.date}
+          data={data}
+          width={width}
+          height={height}
+          xScale={xScale}
+          yScale={yScale}
+        >
+          <Area
+            data={data}
+            x={d => d.date}
+            y0={yScale(yDomain[0])}
+            y1={d => d.expected}
+            style={expectedStyle}
+            xScale={xScale}
+            yScale={yScale}
+            defined={d => !isNaN(d.expected)}
+            width={width}
+            height={height}
+          />
+          <Area
+            data={data}
+            x={d => d.date}
+            y0={yScale(yDomain[0])}
+            y1={d => d.actual}
+            style={actualStyle}
+            xScale={xScale}
+            yScale={yScale}
+            defined={d => !isNaN(d.actual)}
+          />
+        </DataSeriesWithTooltip>
+        <Axis
+          scale={xScale}
+          transform={`translate(0, ${height})`}
+          axisStyle={axisStyle}
+          textStyle={textStyle}
+          orientation={'bottom'}
+          tickFormat={this.props.xTickFormat}
+          tickArguments={this.props.xTickArguments}
+        />
+        <Axis
+          scale={yScale}
+          axisStyle={axisStyle}
+          textStyle={textStyle}
+          orientation={'left'}
+          tickFormat={this.props.yTickFormat}
+          tickArguments={this.props.yTickArguments}
+        />
+      </Chart>
+    );
+  }
+}
 
 TrendAreaChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
