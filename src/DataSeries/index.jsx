@@ -4,7 +4,7 @@ import { select, mouse } from 'd3-selection';
 
 class DataSeries extends PureComponent {
   componentDidMount() {
-    const { data, x, xScale, onMouseOut, onMouseOver, onMouseMove } = this.props;
+    const { data, x, xScale, onMouseOut, onMouseOver, onMouseMove, margins } = this.props;
 
     const el = select(this.rect);
 
@@ -14,13 +14,17 @@ class DataSeries extends PureComponent {
     if (onMouseMove) {
       const bisect = bisector(x).left;
       el.on('mousemove', function mousemove() {
-        const [cx] = mouse(this);
+        const [cx, cy] = mouse(this);
         const x0 = xScale.invert(cx);
         const i = bisect(data, x0, 1);
         const d0 = data[i - 1];
         const d1 = data[i];
-        const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-        onMouseMove(d);
+        const d = x0 - x(d0) > x(d1) - x0 ? d1 : d0;
+        onMouseMove({
+          cx: cx + margins.left,
+          cy: cy + margins.top,
+          data: d
+        });
       });
     }
   }
@@ -30,9 +34,11 @@ class DataSeries extends PureComponent {
 
     return (
       <g>
-        { this.props.children }
+        {this.props.children}
         <rect
-          ref={(ref) => { this.rect = ref; }}
+          ref={(ref) => {
+            this.rect = ref;
+          }}
           fill="none"
           width={width}
           height={height}
@@ -53,7 +59,13 @@ DataSeries.propTypes = {
   xScale: PropTypes.func,
   // yScale: PropTypes.func,
   data: PropTypes.arrayOf(PropTypes.object),
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  margins: PropTypes.shape({
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number,
+    bottom: PropTypes.number
+  })
 };
 
 DataSeries.defaultProps = {
@@ -65,7 +77,13 @@ DataSeries.defaultProps = {
   onMouseOut: null,
   onMouseOver: null,
   onMouseMove: null,
-  data: []
+  data: [],
+  margins: {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  }
 };
 
 export default DataSeries;

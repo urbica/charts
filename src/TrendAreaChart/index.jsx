@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { extent } from 'd3-array';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
@@ -8,142 +8,94 @@ import Chart from '../Chart';
 import DataSeries from '../DataSeries';
 import { getDomain } from '../utils';
 import { withTooltip } from '../Tooltip';
+import { marginProps, lineProps, fillProps, textProps } from '../utils/propTypes';
 
-class TrendAreaChart extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const TrendAreaChart = (props) => {
+  const { data, margins } = props;
 
-  render() {
-    const { data, margins, actualStyle, expectedStyle, axisStyle, textStyle } = this.props;
+  const width = props.width - margins.left - margins.right;
+  const height = props.height - margins.top - margins.bottom;
 
-    const width = this.props.width - margins.left - margins.right;
-    const height = this.props.height - margins.top - margins.bottom;
+  const xDomain = extent(data, d => d.date);
+  const yDomain = getDomain(['actual', 'expected'], data);
 
-    const xDomain = extent(data, d => d.date);
-    const yDomain = getDomain(['actual', 'expected'], data);
+  const xScale = scaleTime().range([0, width]).domain(xDomain);
+  const yScale = scaleLinear().range([height, 0]).domain(yDomain);
 
-    const xScale = scaleTime().range([0, width]).domain(xDomain);
-    const yScale = scaleLinear().range([height, 0]).domain(yDomain);
+  const ChartWithTooltip = withTooltip(Chart);
 
-    const DataSeriesWithTooltip = withTooltip(DataSeries);
-
-    return (
-      <Chart height={this.props.height} width={this.props.width} margins={margins}>
-        <DataSeriesWithTooltip
-          x={d => d.date}
+  return (
+    <ChartWithTooltip height={props.height} width={props.width} margins={margins}>
+      <DataSeries
+        x={d => d.date}
+        data={data}
+        width={width}
+        height={height}
+        margins={margins}
+        xScale={xScale}
+        yScale={yScale}
+      >
+        <Area
           data={data}
-          width={width}
-          height={height}
+          x={d => d.date}
+          y0={yScale(yDomain[0])}
+          y1={d => d.expected}
+          style={props.expectedStyle}
           xScale={xScale}
           yScale={yScale}
-        >
-          <Area
-            data={data}
-            x={d => d.date}
-            y0={yScale(yDomain[0])}
-            y1={d => d.expected}
-            style={expectedStyle}
-            xScale={xScale}
-            yScale={yScale}
-            defined={d => !isNaN(d.expected)}
-            width={width}
-            height={height}
-          />
-          <Area
-            data={data}
-            x={d => d.date}
-            y0={yScale(yDomain[0])}
-            y1={d => d.actual}
-            style={actualStyle}
-            xScale={xScale}
-            yScale={yScale}
-            defined={d => !isNaN(d.actual)}
-          />
-        </DataSeriesWithTooltip>
-        <Axis
-          scale={xScale}
-          transform={`translate(0, ${height})`}
-          axisStyle={axisStyle}
-          textStyle={textStyle}
-          orientation={'bottom'}
-          tickFormat={this.props.xTickFormat}
-          tickArguments={this.props.xTickArguments}
+          defined={d => !isNaN(d.expected)}
+          width={width}
+          height={height}
         />
-        <Axis
-          scale={yScale}
-          axisStyle={axisStyle}
-          textStyle={textStyle}
-          orientation={'left'}
-          tickFormat={this.props.yTickFormat}
-          tickArguments={this.props.yTickArguments}
+        <Area
+          data={data}
+          x={d => d.date}
+          y0={yScale(yDomain[0])}
+          y1={d => d.actual}
+          style={props.actualStyle}
+          xScale={xScale}
+          yScale={yScale}
+          defined={d => !isNaN(d.actual)}
         />
-      </Chart>
-    );
-  }
-}
+      </DataSeries>
+      <Axis
+        scale={xScale}
+        orientation={'bottom'}
+        transform={`translate(0, ${height})`}
+        axisStyle={props.axisStyle}
+        textStyle={props.textStyle}
+        tickFormat={props.xTickFormat}
+        tickArguments={props.xTickArguments}
+      />
+      <Axis
+        scale={yScale}
+        orientation={'left'}
+        axisStyle={props.axisStyle}
+        textStyle={props.textStyle}
+        tickFormat={props.yTickFormat}
+        tickArguments={props.yTickArguments}
+      />
+    </ChartWithTooltip>
+  );
+};
 
 TrendAreaChart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    date: PropTypes.instanceOf(Date).isRequired,
-    actual: PropTypes.any,
-    expected: PropTypes.any
-  })).isRequired,
-  margins: PropTypes.shape({
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number,
-    bottom: PropTypes.number
-  }),
-  actualStyle: PropTypes.shape({
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  }),
-  expectedStyle: PropTypes.shape({
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  }),
-  axisStyle: PropTypes.shape({
-    fill: PropTypes.string,
-    fillOpacity: PropTypes.number,
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  }),
-  textStyle: PropTypes.shape({
-    fill: PropTypes.string,
-    fillOpacity: PropTypes.number,
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  }),
-  xTickArguments: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]),
-  xTickFormat: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]),
-  yTickArguments: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]),
-  yTickFormat: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date).isRequired,
+      actual: PropTypes.any,
+      expected: PropTypes.any
+    })
+  ).isRequired,
+  margins: marginProps,
+  actualStyle: lineProps,
+  expectedStyle: lineProps,
+  axisStyle: fillProps,
+  textStyle: textProps,
+  xTickArguments: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+  xTickFormat: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+  yTickArguments: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+  yTickFormat: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired
 };
