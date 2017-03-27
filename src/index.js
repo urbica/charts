@@ -4,6 +4,8 @@ import Chart from './Chart';
 import Line from './Line';
 import TrendChart from './TrendChart';
 import TrendAreaChart from './TrendAreaChart';
+
+import { Tooltip, withTooltip } from './Tooltip';
 import { getDomain } from './utils';
 
-export { Area, Axis, Chart, Line, TrendChart, TrendAreaChart, getDomain };
+export { Area, Axis, Chart, Line, TrendChart, TrendAreaChart, Tooltip, withTooltip, getDomain };
