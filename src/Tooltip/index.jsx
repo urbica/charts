@@ -56,7 +56,7 @@ export const withTooltip = (WrappedComponent, options = {}) => {
 
     render() {
       const { cx, cy, data, show } = this.state;
-      const TooltipComponent = options.Tooltip || Tooltip;
+      const TooltipComponent = options.tooltip || Tooltip;
 
       return (
         <div>

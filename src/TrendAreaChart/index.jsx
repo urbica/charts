@@ -5,7 +5,6 @@ import { scaleLinear, scaleTime } from 'd3-scale';
 import Axis from '../Axis';
 import Area from '../Area';
 import Chart from '../Chart';
-import DataSeries from '../DataSeries';
 import { getDomain } from '../utils';
 import { withTooltip } from '../Tooltip';
 import { marginProps, lineProps, fillProps, textProps } from '../utils/propTypes';
@@ -25,39 +24,37 @@ const TrendAreaChart = (props) => {
   const ChartWithTooltip = withTooltip(Chart);
 
   return (
-    <ChartWithTooltip height={props.height} width={props.width} margins={margins}>
-      <DataSeries
-        x={d => d.date}
+    <ChartWithTooltip
+      data={data}
+      height={props.height}
+      margins={margins}
+      width={props.width}
+      x={d => d.date}
+      xScale={xScale}
+      yScale={yScale}
+    >
+      <Area
         data={data}
-        width={width}
-        height={height}
-        margins={margins}
+        x={d => d.date}
+        y0={yScale(yDomain[0])}
+        y1={d => d.expected}
+        style={props.expectedStyle}
         xScale={xScale}
         yScale={yScale}
-      >
-        <Area
-          data={data}
-          x={d => d.date}
-          y0={yScale(yDomain[0])}
-          y1={d => d.expected}
-          style={props.expectedStyle}
-          xScale={xScale}
-          yScale={yScale}
-          defined={d => !isNaN(d.expected)}
-          width={width}
-          height={height}
-        />
-        <Area
-          data={data}
-          x={d => d.date}
-          y0={yScale(yDomain[0])}
-          y1={d => d.actual}
-          style={props.actualStyle}
-          xScale={xScale}
-          yScale={yScale}
-          defined={d => !isNaN(d.actual)}
-        />
-      </DataSeries>
+        defined={d => !isNaN(d.expected)}
+        width={width}
+        height={height}
+      />
+      <Area
+        data={data}
+        x={d => d.date}
+        y0={yScale(yDomain[0])}
+        y1={d => d.actual}
+        style={props.actualStyle}
+        xScale={xScale}
+        yScale={yScale}
+        defined={d => !isNaN(d.actual)}
+      />
       <Axis
         scale={xScale}
         orientation={'bottom'}
