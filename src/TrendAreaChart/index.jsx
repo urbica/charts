@@ -6,7 +6,6 @@ import Axis from '../Axis';
 import Area from '../Area';
 import Chart from '../Chart';
 import { getDomain } from '../utils';
-import { withTooltip } from '../Tooltip';
 import { marginProps, lineProps, fillProps, textProps } from '../utils/propTypes';
 
 const TrendAreaChart = (props) => {
@@ -21,10 +20,8 @@ const TrendAreaChart = (props) => {
   const xScale = scaleTime().range([0, width]).domain(xDomain);
   const yScale = scaleLinear().range([height, 0]).domain(yDomain);
 
-  const ChartWithTooltip = withTooltip(Chart);
-
   return (
-    <ChartWithTooltip
+    <Chart
       data={data}
       height={props.height}
       margins={margins}
@@ -72,7 +69,7 @@ const TrendAreaChart = (props) => {
         tickFormat={props.yTickFormat}
         tickArguments={props.yTickArguments}
       />
-    </ChartWithTooltip>
+    </Chart>
   );
 };
 

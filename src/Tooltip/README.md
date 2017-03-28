@@ -6,16 +6,6 @@
 import { withTooltip } from '@urbica/components';
 ```
 
-## Properties
-
-* data: array of objects `{ key, actual, expected }` **required**
-* margins: `{ top, right, bottom, left }`
-* actualStyle: actual area style object
-* expectedStyle: expected area style object
-* width: chart width **required**
-* height: chart height **required**
-
-
 ## Example
 
 ```js
