@@ -1,6 +1,8 @@
 # Urbica Components
 
-[React Storybook](http://urbica.github.io/components)
+[![Build Status](https://travis-ci.org/urbica/components.svg?branch=master)](https://travis-ci.org/urbica/components)
+
+Urbica React D3 Components. [React Storybook](http://urbica.github.io/components)
 
 ## Usage
 
