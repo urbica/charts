@@ -85,12 +85,12 @@ Chart.defaultProps = {
     bottom: 0,
     left: 0
   },
-  onMouseMove: null,
-  onMouseOut: null,
-  onMouseOver: null,
-  x: null,
-  xScale: null
-  // yScale: null
+  onMouseMove: PropTypes.null,
+  onMouseOut: PropTypes.null,
+  onMouseOver: PropTypes.null,
+  x: PropTypes.null,
+  xScale: PropTypes.null
+  // yScale: PropTypes.null
 };
 
 export default Chart;

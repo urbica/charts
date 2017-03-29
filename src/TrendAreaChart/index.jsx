@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { extent } from 'd3-array';
+import { curveBasis } from 'd3-shape';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
 import Axis from '../Axis';
@@ -38,6 +39,7 @@ const TrendAreaChart = (props) => {
         style={props.expectedStyle}
         xScale={xScale}
         yScale={yScale}
+        curve={curveBasis}
         defined={d => !isNaN(d.expected)}
         width={width}
         height={height}
@@ -50,6 +52,7 @@ const TrendAreaChart = (props) => {
         style={props.actualStyle}
         xScale={xScale}
         yScale={yScale}
+        curve={curveBasis}
         defined={d => !isNaN(d.actual)}
       />
       <Axis

@@ -1,18 +1,19 @@
 import React, { PropTypes } from 'react';
 import { path } from 'd3-path';
-import { area, curveBasis } from 'd3-shape';
+import { area } from 'd3-shape';
 
 const Area = (props) => {
-  const { data, defined, style, xScale, yScale, x, y0, y1 } = props;
+  const { data, curve, defined, style, xScale, yScale, x, y0, y1 } = props;
   const context = path();
 
   const areaGenerator = area()
     .x(d => xScale(x(d)))
     .y1(d => yScale(y1(d)))
     .y0(y0)
-    .curve(curveBasis)
-    .defined(defined)
     .context(context);
+
+  if (curve) areaGenerator.curve(curve);
+  if (defined) areaGenerator.defined(defined);
 
   areaGenerator(data);
 
@@ -20,12 +21,9 @@ const Area = (props) => {
 };
 
 Area.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    date: PropTypes.instanceOf(Date).isRequired,
-    actual: PropTypes.any,
-    expected: PropTypes.any
-  })).isRequired,
-  defined: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  curve: PropTypes.func,
+  defined: PropTypes.func,
   x: PropTypes.func.isRequired,
   y0: PropTypes.number.isRequired,
   y1: PropTypes.func.isRequired,
@@ -41,6 +39,8 @@ Area.propTypes = {
 };
 
 Area.defaultProps = {
+  curve: PropTypes.null,
+  defined: PropTypes.null
 };
 
 export default Area;

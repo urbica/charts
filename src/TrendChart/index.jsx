@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { extent } from 'd3-array';
+import { curveBasis } from 'd3-shape';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
 import Line from '../Line';
@@ -27,6 +28,7 @@ const TrendChart = (props) => {
         style={expectedStyle}
         xScale={xScale}
         yScale={yScale}
+        curve={curveBasis}
         defined={d => !isNaN(d.expected)}
       />
       <Line
@@ -36,6 +38,7 @@ const TrendChart = (props) => {
         style={actualStyle}
         xScale={xScale}
         yScale={yScale}
+        curve={curveBasis}
         defined={d => !isNaN(d.actual)}
       />
     </Chart>

@@ -46,6 +46,7 @@
     "@kadira/storybook": "2.35.3",
     "@kadira/storybook-addon-knobs": "1.7.1",
     "@kadira/storybook-addon-options": "1.0.2",
+    "@kadira/storybook-addons": "1.6.1",
     "@kadira/storybook-deployer": "1.2.0",
     "babel-core": "6.24.0",
     "babel-loader": "6.4.1",
@@ -58,6 +59,7 @@
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.10.3",
     "greenkeeper-postpublish": "1.0.1",
+    "pre-commit": "1.2.2",
     "react-storybook-addon-backgrounds": "0.0.7",
     "webpack": "2.3.2"
   }

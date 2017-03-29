@@ -66,6 +66,47 @@ import { timeFormat } from 'd3-time-format';
 />
 ```
 
+### LineChart
+
+```js
+import { LineChart } from '@urbica/components';
+import { curveBasis } from 'd3-shape';
+import { scaleLinear, scaleTime } from 'd3-scale';
+
+<LineChart
+  data={data}
+  x={d => d.x}
+  y={d => d.y}
+  width={640}
+  height={240}
+  curve={curveBasis}
+  xScale={scaleTime}
+  yScale={scaleLinear}
+  lineStyle={lineStyle}
+/>
+```
+
+
+### AreaChart
+
+```js
+import { AreaChart } from '@urbica/components';
+import { curveBasis } from 'd3-shape';
+import { scaleLinear, scaleTime } from 'd3-scale';
+
+<AreaChart
+  data={data}
+  x={d => d.x}
+  y={d => d.y}
+  width={640}
+  height={240}
+  curve={curveBasis}
+  xScale={scaleTime}
+  yScale={scaleLinear}
+  areaStyle={areaStyle}
+/>
+```
+
 ### TrendChart
 
 Trend chart is a graphical representation of time series data (information in sequence over time) showing the trend line or curve that reveals a general pattern of change.
