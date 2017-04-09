@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chart 1`] = `
+<svg
+  height={100}
+  width={100}
+>
+  <g
+    transform="translate(0, 0)"
+  />
+</svg>
+`;

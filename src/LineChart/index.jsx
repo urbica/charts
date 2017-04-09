@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { extent } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
 
@@ -60,11 +61,7 @@ LineChart.propTypes = {
 
 LineChart.defaultProps = {
   lineStyle: {
-    stroke: '#5e6066',
-    strokeWidth: 2,
-    strokeOpacity: 1,
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round'
+    stroke: '#000'
   },
   margins: {
     top: 0,

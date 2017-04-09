@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { path } from 'd3-path';
 import { area } from 'd3-shape';
 

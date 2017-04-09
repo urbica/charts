@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AreaChart 1`] = `
+<svg
+  height={100}
+  width={100}
+>
+  <g
+    transform="translate(0, 0)"
+  >
+    <path
+      d="M0,100L100,0L100,100L0,100Z"
+      style={
+        Object {
+          "fill": "#000",
+        }
+      }
+    />
+  </g>
+</svg>
+`;

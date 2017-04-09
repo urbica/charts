@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
 import { axisTop, axisRight, axisBottom, axisLeft } from 'd3-axis';
 

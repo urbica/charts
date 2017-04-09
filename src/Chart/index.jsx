@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { bisector } from 'd3-array';
 import { select, mouse } from 'd3-selection';
 
@@ -59,7 +60,7 @@ class Chart extends PureComponent {
 }
 
 Chart.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   data: PropTypes.arrayOf(PropTypes.object),
   height: PropTypes.number.isRequired,
   margins: PropTypes.shape({
@@ -74,10 +75,10 @@ Chart.propTypes = {
   width: PropTypes.number.isRequired,
   x: PropTypes.func,
   xScale: PropTypes.func
-  // yScale: PropTypes.func
 };
 
 Chart.defaultProps = {
+  children: PropTypes.null,
   data: [],
   margins: {
     top: 0,
@@ -90,7 +91,6 @@ Chart.defaultProps = {
   onMouseOver: PropTypes.null,
   x: PropTypes.null,
   xScale: PropTypes.null
-  // yScale: PropTypes.null
 };
 
 export default Chart;

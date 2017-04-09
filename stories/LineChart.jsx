@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import React from 'react';
-import { curveBasis } from 'd3-shape';
 import { scaleLinear, scaleTime } from 'd3-scale';
 import { color, number, select } from '@kadira/storybook-addon-knobs';
 import { LineChart } from '../src';
@@ -20,8 +19,8 @@ export default () => {
 
   const lineStyle = {
     stroke: color('Line color', '#000'),
-    strokeWidth: number('Line stroke width', 2),
-    strokeOpacity: number('Line stroke opacity', 0.8, opacityOptions),
+    strokeWidth: number('Line stroke width', 1),
+    strokeOpacity: number('Line stroke opacity', 1, opacityOptions),
     strokeLinecap: select('Line line cap', linecapOptions, 'round'),
     strokeLinejoin: select('Line line join', linejoinOptions, 'round')
   };

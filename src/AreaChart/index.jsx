@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { extent } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
 
@@ -61,11 +62,7 @@ AreaChart.propTypes = {
 
 AreaChart.defaultProps = {
   areaStyle: {
-    fill: '#000',
-    fillOpacity: 1,
-    stroke: '#000',
-    strokeWidth: 1,
-    strokeOpacity: 1
+    fill: '#000'
   },
   margins: {
     top: 0,

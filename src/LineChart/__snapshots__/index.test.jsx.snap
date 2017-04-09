@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LineChart 1`] = `
+<svg
+  height={100}
+  width={100}
+>
+  <g
+    transform="translate(0, 0)"
+  >
+    <path
+      d="M0,100L100,0"
+      fill="none"
+      style={
+        Object {
+          "stroke": "#000",
+        }
+      }
+    />
+  </g>
+</svg>
+`;

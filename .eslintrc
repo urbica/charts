@@ -1,5 +1,11 @@
 {
   "extends": "airbnb",
+  "plugins": [
+    "jest"
+  ],
+  "env": {
+    "jest/globals": true
+  },
   "rules": {
     "comma-dangle": ["error", "never"]
   }

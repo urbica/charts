@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Line 1`] = `
+<path
+  d="M0,100L100,0"
+  fill="none"
+  style={
+    Object {
+      "stroke": "#000",
+    }
+  }
+/>
+`;
