@@ -13,3 +13,24 @@ test('Chart', () => {
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+test('Chart with mouse events', () => {
+  const x = d => d.x;
+  const onMouseMove = () => true;
+  const onMouseOut = () => true;
+  const onMouseOver = () => true;
+
+  const component = renderer.create(
+    <Chart
+      height={100}
+      width={100}
+      x={x}
+      onMouseMove={onMouseMove}
+      onMouseOut={onMouseOut}
+      onMouseOver={onMouseOver}
+    />
+  );
+
+  const tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
+});

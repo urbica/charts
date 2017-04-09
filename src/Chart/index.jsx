@@ -12,7 +12,7 @@ class Chart extends PureComponent {
     if (onMouseOut) el.on('mouseout', onMouseOut);
     if (onMouseOver) el.on('mouseover', onMouseOver);
 
-    if (onMouseMove) {
+    if (onMouseMove && x) {
       const bisect = bisector(x).left;
       el.on('mousemove', function mousemove() {
         const [cx, cy] = mouse(this);

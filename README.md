@@ -1,6 +1,7 @@
 # Urbica Components
 
 [![Build Status](https://travis-ci.org/urbica/components.svg?branch=master)](https://travis-ci.org/urbica/components)
+[![codecov](https://codecov.io/gh/urbica/components/branch/master/graph/badge.svg)](https://codecov.io/gh/urbica/components)
 
 Urbica React D3 Components. [React Storybook](http://urbica.github.io/components)
 

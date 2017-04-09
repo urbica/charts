@@ -14,7 +14,9 @@ cache:
     - node_modules
 
 install:
+  - yarn global add codecov
   - yarn
 
 script:
   - yarn test:ci
+  - yarn test:coverage && codecov

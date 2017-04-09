@@ -10,3 +10,21 @@ exports[`Chart 1`] = `
   />
 </svg>
 `;
+
+exports[`Chart with mouse events 1`] = `
+<svg
+  height={100}
+  width={100}
+>
+  <g
+    transform="translate(0, 0)"
+  >
+    <rect
+      fill="none"
+      height={100}
+      pointerEvents="all"
+      width={100}
+    />
+  </g>
+</svg>
+`;
