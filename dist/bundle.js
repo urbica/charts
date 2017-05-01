@@ -2804,6 +2804,16 @@ var Axis = function (_PureComponent) {
   _createClass(Axis, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      this.renderEl();
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.renderEl();
+    }
+  }, {
+    key: 'renderEl',
+    value: function renderEl() {
       var _props = this.props,
           tickArguments = _props.tickArguments,
           tickFormat = _props.tickFormat,
@@ -2846,9 +2856,12 @@ var Axis = function (_PureComponent) {
 
       var transform = this.props.transform;
 
-      return _react2.default.createElement('g', { ref: function ref(_ref5) {
+      return _react2.default.createElement('g', {
+        ref: function ref(_ref5) {
           _this2.axis = _ref5;
-        }, transform: transform });
+        },
+        transform: transform
+      });
     }
   }]);
 

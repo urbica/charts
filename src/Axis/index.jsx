@@ -12,6 +12,14 @@ const orientations = {
 
 class Axis extends PureComponent {
   componentDidMount() {
+    this.renderEl();
+  }
+
+  componentDidUpdate() {
+    this.renderEl();
+  }
+
+  renderEl() {
     const { tickArguments, tickFormat, axisStyle, textStyle } = this.props;
     const axisGenerator = orientations[this.props.orientation];
     const axis = axisGenerator(this.props.scale);
@@ -36,7 +44,12 @@ class Axis extends PureComponent {
   render() {
     const { transform } = this.props;
     return (
-      <g ref={(ref) => { this.axis = ref; }} transform={transform} />
+      <g
+        ref={(ref) => {
+          this.axis = ref;
+        }}
+        transform={transform}
+      />
     );
   }
 }
@@ -45,14 +58,8 @@ Axis.propTypes = {
   orientation: PropTypes.string.isRequired,
   scale: PropTypes.func.isRequired,
   transform: PropTypes.string,
-  tickArguments: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]),
-  tickFormat: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]),
+  tickArguments: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+  tickFormat: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
   axisStyle: PropTypes.shape({
     fill: PropTypes.string,
     fillOpacity: PropTypes.string,
