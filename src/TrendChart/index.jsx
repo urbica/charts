@@ -7,6 +7,7 @@ import { scaleLinear, scaleTime } from 'd3-scale';
 import Line from '../Line';
 import Chart from '../Chart';
 import { getDomain } from '../utils';
+import { marginProps, fillProps } from '../utils/propTypes';
 
 const TrendChart = (props) => {
   const { data, margins, actualStyle, expectedStyle } = props;
@@ -14,8 +15,8 @@ const TrendChart = (props) => {
   const width = props.width - margins.left - margins.right;
   const height = props.height - margins.top - margins.bottom;
 
-  const xDomain = extent(data, d => d.date);
-  const yDomain = getDomain(['actual', 'expected'], data);
+  const xDomain = props.xDomain || extent(data, d => d.date);
+  const yDomain = props.yDomain || getDomain(['actual', 'expected'], data);
 
   const xScale = scaleTime().range([0, width]).domain(xDomain);
   const yScale = scaleLinear().range([height, 0]).domain(yDomain);
@@ -47,35 +48,20 @@ const TrendChart = (props) => {
 };
 
 TrendChart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    date: PropTypes.instanceOf(Date).isRequired,
-    actual: PropTypes.any,
-    expected: PropTypes.any
-  })).isRequired,
-  margins: PropTypes.shape({
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number,
-    bottom: PropTypes.number
-  }),
-  actualStyle: PropTypes.shape({
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  }),
-  expectedStyle: PropTypes.shape({
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number,
-    strokeLinecap: PropTypes.string,
-    strokeLinejoin: PropTypes.string
-  }),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date).isRequired,
+      actual: PropTypes.any,
+      expected: PropTypes.any
+    })
+  ).isRequired,
+  margins: marginProps,
+  actualStyle: fillProps,
+  expectedStyle: fillProps,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
-  // xRange: PropTypes.arrayOf(PropTypes.number),
-  // yRange: PropTypes.arrayOf(PropTypes.number)
+  height: PropTypes.number.isRequired,
+  xDomain: PropTypes.arrayOf(PropTypes.number),
+  yDomain: PropTypes.arrayOf(PropTypes.number)
 };
 
 TrendChart.defaultProps = {
@@ -98,7 +84,9 @@ TrendChart.defaultProps = {
     right: 0,
     bottom: 0,
     left: 0
-  }
+  },
+  xDomain: PropTypes.null,
+  yDomain: PropTypes.nul
 };
 
 export default TrendChart;

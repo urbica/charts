@@ -1,5 +1,10 @@
 {
   "extends": "airbnb",
+  "globals": {
+    "react": true,
+    "react-dom": true,
+    "prop-types": true
+  },
   "plugins": [
     "jest"
   ],

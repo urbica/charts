@@ -12,8 +12,8 @@ const AreaChart = (props) => {
   const width = props.width - margins.left - margins.right;
   const height = props.height - margins.top - margins.bottom;
 
-  const xDomain = extent(data, x);
-  const yDomain = extent(data, y);
+  const xDomain = props.xDomain || extent(data, x);
+  const yDomain = props.yDomain || extent(data, y);
 
   const xScale = props.xScale().range([0, width]).domain(xDomain);
   const yScale = props.yScale().range([height, 0]).domain(yDomain);
@@ -39,6 +39,8 @@ AreaChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   x: PropTypes.func.isRequired,
   y: PropTypes.func.isRequired,
+  xDomain: PropTypes.arrayOf(PropTypes.number),
+  yDomain: PropTypes.arrayOf(PropTypes.number),
   xScale: PropTypes.func,
   yScale: PropTypes.func,
   defined: PropTypes.func,
@@ -70,6 +72,8 @@ AreaChart.defaultProps = {
     bottom: 0,
     left: 0
   },
+  xDomain: PropTypes.null,
+  yDomain: PropTypes.null,
   xScale: scaleLinear,
   yScale: scaleLinear,
   curve: PropTypes.null,

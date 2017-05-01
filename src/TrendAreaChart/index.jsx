@@ -16,8 +16,8 @@ const TrendAreaChart = (props) => {
   const width = props.width - margins.left - margins.right;
   const height = props.height - margins.top - margins.bottom;
 
-  const xDomain = extent(data, d => d.date);
-  const yDomain = getDomain(['actual', 'expected'], data);
+  const xDomain = props.xDomain || extent(data, d => d.date);
+  const yDomain = props.yDomain || getDomain(['actual', 'expected'], data);
 
   const xScale = scaleTime().range([0, width]).domain(xDomain);
   const yScale = scaleLinear().range([height, 0]).domain(yDomain);
@@ -90,6 +90,8 @@ TrendAreaChart.propTypes = {
   expectedStyle: lineProps,
   axisStyle: fillProps,
   textStyle: textProps,
+  xDomain: PropTypes.arrayOf(PropTypes.number),
+  yDomain: PropTypes.arrayOf(PropTypes.number),
   xTickArguments: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
   xTickFormat: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
   yTickArguments: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
@@ -99,6 +101,8 @@ TrendAreaChart.propTypes = {
 };
 
 TrendAreaChart.defaultProps = {
+  xDomain: PropTypes.null,
+  yDomain: PropTypes.null,
   xTickArguments: undefined,
   xTickFormat: undefined,
   yTickArguments: undefined,
