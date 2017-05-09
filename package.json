@@ -8,6 +8,8 @@
   "module": "src/index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
+    "commit": "git-cz",
+    "release": "standard-version",
     "build-storybook": "build-storybook",
     "build": "webpack --config webpack.config.js",
     "deploy-storybook": "storybook-to-ghpages",
@@ -18,6 +20,11 @@
     "test": "jest --watch",
     "test:ci": "jest",
     "test:coverage": "jest --coverage"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "pre-commit": [
     "lint",
@@ -39,7 +46,7 @@
     "d3-axis": "1.0.6",
     "d3-path": "1.0.5",
     "d3-scale": "1.0.5",
-    "d3-selection": "1.0.5",
+    "d3-selection": "1.0.6",
     "d3-shape": "1.0.6"
   },
   "peerDependencies": {
@@ -48,19 +55,18 @@
     "react-dom": "15.5.4"
   },
   "devDependencies": {
-    "prop-types": "15.5.8",
-    "react": "15.5.4",
-    "react-dom": "15.5.4",
     "@kadira/storybook": "2.35.3",
     "@kadira/storybook-addon-knobs": "1.7.1",
     "@kadira/storybook-addon-options": "1.0.2",
     "@kadira/storybook-addons": "1.6.1",
     "@kadira/storybook-deployer": "1.2.0",
     "babel-core": "6.24.1",
-    "babel-jest": "19.0.0",
+    "babel-jest": "20.0.0",
     "babel-loader": "7.0.0",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",
+    "commitizen": "2.9.6",
+    "cz-conventional-changelog": "2.0.0",
     "d3-time": "1.0.6",
     "d3-time-format": "2.0.5",
     "eslint": "3.19.0",
@@ -70,10 +76,14 @@
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.10.3",
     "greenkeeper-postpublish": "1.0.1",
-    "jest": "19.0.2",
+    "jest": "20.0.0",
     "pre-commit": "1.2.2",
+    "prop-types": "15.5.8",
+    "react": "15.5.4",
+    "react-dom": "15.5.4",
     "react-storybook-addon-backgrounds": "0.0.7",
     "react-test-renderer": "15.5.4",
-    "webpack": "2.4.1"
+    "standard-version": "4.0.0",
+    "webpack": "2.5.1"
   }
 }
