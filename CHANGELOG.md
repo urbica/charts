@@ -10,14 +10,6 @@ All notable changes to this project will be documented in this file. See [standa
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/urbica/components/compare/v1.1.1...v1.1.2) (2017-05-11)
 
-
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
-
-## Changelog
-
 ### 1.1.1
 
  - Fix axis render
