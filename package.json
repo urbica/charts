@@ -69,12 +69,12 @@
     "d3-time-format": "2.0.5",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "15.0.1",
-    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-import": "2.3.0",
     "eslint-plugin-jest": "20.0.3",
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-react": "7.0.1",
     "greenkeeper-postpublish": "1.0.1",
-    "jest": "20.0.3",
+    "jest": "20.0.4",
     "pre-commit": "1.2.2",
     "prop-types": "15.5.10",
     "react": "15.5.4",
@@ -82,6 +82,6 @@
     "react-storybook-addon-backgrounds": "0.0.7",
     "react-test-renderer": "15.5.4",
     "standard-version": "4.0.0",
-    "webpack": "2.5.1"
+    "webpack": "2.6.0"
   }
 }
