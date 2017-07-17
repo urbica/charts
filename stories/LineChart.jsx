@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { scaleLinear, scaleTime } from 'd3-scale';
-import { color, number, select } from '@kadira/storybook-addon-knobs';
+import { color, number, select } from '@storybook/addon-knobs';
 import { LineChart } from '../src';
 
 const data = [];

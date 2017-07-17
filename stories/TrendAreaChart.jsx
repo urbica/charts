@@ -3,7 +3,7 @@
 import React from 'react';
 import { timeHour } from 'd3-time';
 import { timeFormat } from 'd3-time-format';
-import { color, object, number, select } from '@kadira/storybook-addon-knobs';
+import { color, object, number, select } from '@storybook/addon-knobs';
 import { TrendAreaChart } from '../src';
 
 const data = [];

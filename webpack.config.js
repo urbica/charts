@@ -1,7 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  bail: true,
+  entry: path.resolve(__dirname, 'src', 'index.js'),
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',
@@ -25,7 +26,15 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react']
+          presets: [
+            ['es2015', { modules: false }],
+            ['env', {
+              targets: {
+                browsers: ['last 2 versions']
+              }
+            }],
+            'react'
+          ]
         }
       }
     ]

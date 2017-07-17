@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import React from 'react';
-import { color, object, number, select } from '@kadira/storybook-addon-knobs';
+import { color, object, number, select } from '@storybook/addon-knobs';
 import { TrendChart } from '../src';
 
 const data = [];
