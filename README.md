@@ -1,5 +1,7 @@
 # Urbica Components
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/urbica/components.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/urbica/components.svg?branch=master)](https://travis-ci.org/urbica/components)
 [![codecov](https://codecov.io/gh/urbica/components/branch/master/graph/badge.svg)](https://codecov.io/gh/urbica/components)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
