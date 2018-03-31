@@ -56,7 +56,7 @@
     "@storybook/addon-backgrounds": "3.2.17",
     "@storybook/addon-knobs": "3.2.17",
     "@storybook/addon-options": "3.2.17",
-    "@storybook/cli": "3.2.17",
+    "@storybook/cli": "3.4.0",
     "@storybook/react": "3.2.17",
     "@storybook/storybook-deployer": "2.1.0",
     "babel-core": "6.26.0",
