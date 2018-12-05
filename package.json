@@ -55,7 +55,7 @@
   "devDependencies": {
     "@storybook/addon-backgrounds": "3.2.17",
     "@storybook/addon-knobs": "4.0.12",
-    "@storybook/addon-options": "3.2.17",
+    "@storybook/addon-options": "4.0.12",
     "@storybook/cli": "4.0.12",
     "@storybook/react": "4.0.12",
     "@storybook/storybook-deployer": "2.1.0",
